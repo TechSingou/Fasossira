@@ -1,0 +1,224 @@
+/* apps/portal/src/app/features/booking/booking-page.component.scss */
+.booking-page { padding: 24px 20px 48px; }
+.content-wrap { max-width: 980px; margin: 0 auto; }
+
+/* ── Back ────────────────────────────────────────────────── */
+.back-bar { margin-bottom: 20px; }
+.btn-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; background: var(--white);
+  border: 1px solid var(--gray-200); border-radius: var(--radius-md);
+  font-family: var(--font); font-size: .8rem; font-weight: 600;
+  color: var(--gray-600); text-decoration: none; transition: all .12s;
+  &:hover { border-color: var(--brand); color: var(--brand); }
+}
+
+/* ── Trip info ───────────────────────────────────────────── */
+.trip-info-card {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--white); border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg); padding: 13px 16px; margin-bottom: 16px;
+}
+.trip-logo      { max-height: 32px; max-width: 80px; object-fit: contain; }
+.trip-logo-mark {
+  width: 36px; height: 36px; border-radius: 8px;
+  display: grid; place-items: center;
+  font-size: .7rem; font-weight: 800; color: var(--white); flex-shrink: 0;
+}
+.trip-info-body  { flex: 1; }
+.trip-info-co    { font-size: .85rem; font-weight: 700; color: var(--gray-900); }
+.trip-info-route { font-size: .72rem; color: var(--gray-400); margin-top: 2px; }
+.trip-info-times { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.t-time  { font-size: .9rem; font-weight: 700; color: var(--gray-900); font-family: var(--font-mono); }
+.t-arrow { color: var(--gray-300); }
+
+/* ── Layout ──────────────────────────────────────────────── */
+.booking-layout {
+  display: grid; grid-template-columns: 1fr 300px;
+  gap: 20px; align-items: start;
+}
+
+/* ── Cards ───────────────────────────────────────────────── */
+.card {
+  background: var(--white); border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg); padding: 16px 18px; margin-bottom: 14px;
+}
+.card-title {
+  font-size: .9rem; font-weight: 700; color: var(--gray-900); margin-bottom: 4px;
+  display: flex; align-items: center; gap: 10px;
+}
+.card-sub { font-size: .72rem; color: var(--gray-400); margin-bottom: 14px; }
+
+/* Compteur sièges dans le titre section passagers */
+.pax-count {
+  font-size: .68rem; font-weight: 600;
+  background: var(--brand-lighter); color: var(--brand);
+  padding: 2px 8px; border-radius: var(--radius-pill);
+}
+
+/* ── Segment ─────────────────────────────────────────────── */
+.segment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+.seg-field { display: flex; flex-direction: column; gap: 5px; }
+.seg-field label {
+  font-size: .68rem; font-weight: 700; color: var(--gray-500);
+  text-transform: uppercase; letter-spacing: .4px;
+}
+.seg-field select {
+  padding: 9px 12px; border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-sm); font-family: var(--font);
+  font-size: .875rem; color: var(--gray-900); outline: none;
+  &:focus { border-color: var(--brand); }
+}
+
+/* ── Seat map ────────────────────────────────────────────── */
+.seats-placeholder {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 28px; color: var(--gray-400); font-size: .82rem;
+}
+.seats-spinner {
+  width: 18px; height: 18px;
+  border: 2px solid var(--gray-200); border-top-color: var(--brand);
+  border-radius: 50%; animation: spin .6s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.seats-err { color: var(--danger); font-size: .82rem; padding: 16px; text-align: center; }
+
+.legend { display: flex; gap: 14px; margin-bottom: 10px; flex-wrap: wrap; }
+.leg-item { display: flex; align-items: center; gap: 5px; font-size: .68rem; color: var(--gray-600); }
+.leg-dot  { width: 13px; height: 13px; border-radius: 3px; flex-shrink: 0; }
+.leg-free  { background: var(--white); border: 1.5px solid var(--gray-200); }
+.leg-taken { background: var(--gray-200); }
+.leg-sel   { background: var(--brand); }
+
+.bus-front {
+  border: 1px solid; border-radius: var(--radius-sm);
+  padding: 7px 12px; margin-bottom: 12px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+.seat-grid {
+  display: grid; grid-template-columns: repeat(5, 34px);
+  gap: 5px; justify-content: center;
+}
+.seat-aisle { width: 34px; height: 34px; }
+.seat {
+  width: 34px; height: 34px; border-radius: 6px;
+  border: 1.5px solid var(--gray-200); background: var(--white);
+  display: grid; place-items: center;
+  font-size: .7rem; font-weight: 600; color: var(--gray-600);
+  cursor: pointer; transition: all .1s; --co: var(--brand);
+
+  &:hover:not(:disabled) {
+    border-color: var(--co); color: var(--co);
+    background: rgba(11,61,145,.06);
+  }
+  &.seat-taken {
+    background: var(--gray-100); color: var(--gray-300);
+    cursor: not-allowed; border-color: var(--gray-100);
+  }
+  &.seat-sel {
+    background: var(--co); color: var(--white); border-color: var(--co);
+  }
+  &:disabled { cursor: not-allowed; }
+}
+
+/* ── Passagers ───────────────────────────────────────────── */
+.pax-card {
+  border: 1px solid var(--gray-100); border-radius: var(--radius-md);
+  padding: 12px; margin-bottom: 10px;
+  animation: fade-in .15s ease both;
+}
+.pax-head  { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.pax-seat  {
+  font-size: .62rem; font-weight: 700;
+  padding: 3px 8px; border-radius: var(--radius-pill); color: var(--white);
+}
+.pax-label { font-size: .8rem; font-weight: 600; color: var(--gray-700); }
+
+.form-row   { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.form-field { display: flex; flex-direction: column; gap: 4px; }
+.form-field label { font-size: .68rem; font-weight: 600; color: var(--gray-600); }
+.form-field input {
+  padding: 8px 11px; border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-sm); font-family: var(--font);
+  font-size: .85rem; color: var(--gray-900); outline: none;
+  &:focus { border-color: var(--brand); }
+}
+.req { color: var(--danger); }
+
+/* ── Paiement ────────────────────────────────────────────── */
+.pay-opts { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.pay-opt {
+  display: flex; align-items: center; gap: 7px;
+  padding: 8px 14px; border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-md); background: var(--white);
+  font-family: var(--font); font-size: .8rem; font-weight: 600;
+  color: var(--gray-700); cursor: pointer; transition: all .12s;
+  &:hover { border-color: var(--brand); color: var(--brand); }
+}
+.pay-active { border-color: var(--brand); background: var(--brand-lighter); color: var(--brand); }
+.pay-icon   {
+  width: 22px; height: 22px; border-radius: 4px;
+  display: grid; place-items: center;
+  font-size: .65rem; font-weight: 800; color: var(--white); flex-shrink: 0;
+}
+
+/* ── Summary panel ───────────────────────────────────────── */
+.booking-right { }
+.summary-panel {
+  background: var(--white); border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg); overflow: hidden;
+  position: sticky; top: 70px;
+}
+.summary-head { padding: 13px 16px; }
+.sum-co    { font-size: .58rem; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.sum-label { font-size: .85rem; font-weight: 700; color: var(--white); margin-top: 3px; }
+.summary-body { padding: 14px 16px; }
+.sum-route { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.sum-city  { font-size: .88rem; font-weight: 700; color: var(--gray-900); }
+.sum-time  { font-size: .65rem; color: var(--gray-400); margin-top: 2px; }
+.sum-arrow { color: var(--gray-300); }
+.sum-divider { height: 1px; background: var(--gray-100); margin-bottom: 12px; }
+.sum-rows  { margin-bottom: 14px; }
+.sum-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 5px 0; font-size: .75rem;
+  border-bottom: 1px solid var(--gray-50);
+  &:last-child { border-bottom: none; }
+}
+.sk { color: var(--gray-400); }
+.sv { font-weight: 600; color: var(--gray-900); }
+.seats-val { display: flex; flex-wrap: wrap; gap: 3px; justify-content: flex-end; }
+.seat-chip {
+  display: inline-block; font-size: .65rem; font-weight: 700;
+  padding: 2px 6px; border-radius: 4px;
+}
+
+.booking-err {
+  background: var(--danger-bg); border: 1px solid var(--danger-border);
+  border-radius: var(--radius-sm); padding: 8px 11px;
+  font-size: .78rem; color: var(--danger); margin-bottom: 10px;
+}
+
+.btn-confirm {
+  width: 100%; padding: 12px; color: var(--white);
+  border: none; border-radius: var(--radius-md);
+  font-family: var(--font); font-size: .88rem; font-weight: 700;
+  cursor: pointer; display: flex; align-items: center;
+  justify-content: center; gap: 7px;
+  transition: filter .12s;
+  &:hover:not(:disabled) { filter: brightness(1.1); }
+  &:disabled { opacity: .45; cursor: not-allowed; }
+}
+
+.no-state {
+  padding: 48px; text-align: center; color: var(--gray-400); font-size: .9rem;
+  a { color: var(--brand); }
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .booking-layout { grid-template-columns: 1fr; }
+  .summary-panel  { position: static; }
+  .form-row       { grid-template-columns: 1fr; }
+}

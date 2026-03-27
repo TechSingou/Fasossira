@@ -1,0 +1,62 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "fasossira-portal": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": { "standalone": true, "style": "scss" },
+        "@schematics/angular:directive":  { "standalone": true },
+        "@schematics/angular:pipe":       { "standalone": true }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "fas",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/fasossira-portal",
+            "index": "src/index.html",
+            "browser": "src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "tsconfig.app.json",
+            "styles": ["src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                { "type": "initial",       "maximumWarning": "500kb", "maximumError": "1mb" },
+                { "type": "anyComponentStyle", "maximumWarning": "2kb", "maximumError": "4kb" }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production":  { "buildTarget": "fasossira-portal:build:production" },
+            "development": { "buildTarget": "fasossira-portal:build:development" }
+          },
+          "defaultConfiguration": "development",
+          "options": {
+            "proxyConfig": "proxy.conf.json",
+            "port": 4201
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "552a18fc-8991-437f-bc63-3799934de3ce"
+  }
+}

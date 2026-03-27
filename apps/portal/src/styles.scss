@@ -1,0 +1,91 @@
+/* ============================================================
+   FASOSSIRA PORTAL — Design System
+   Tokens identiques à apps/web/src/styles.scss
+   ============================================================ */
+
+/* ── 1. Brand ────────────────────────────────────────────── */
+:root {
+  --brand:          #0B3D91;
+  --brand-dark:     #072d6e;
+  --brand-mid:      #1a56c4;
+  --brand-light:    #dbeafe;
+  --brand-lighter:  #eff6ff;
+
+  /* ── 2. Neutrals ─────────────────────────────────────── */
+  --white:      #ffffff;
+  --gray-50:    #f8fafc;
+  --gray-100:   #f1f5f9;
+  --gray-150:   #e8edf4;
+  --gray-200:   #e2e8f0;
+  --gray-300:   #cbd5e1;
+  --gray-400:   #94a3b8;
+  --gray-500:   #64748b;
+  --gray-600:   #475569;
+  --gray-700:   #334155;
+  --gray-800:   #1e293b;
+  --gray-900:   #0f172a;
+
+  /* ── 3. Semantic ─────────────────────────────────────── */
+  --success:        #16a34a;
+  --success-bg:     #f0fdf4;
+  --success-border: #bbf7d0;
+  --warning:        #d97706;
+  --warning-bg:     #fffbeb;
+  --warning-border: #fde68a;
+  --danger:         #dc2626;
+  --danger-bg:      #fef2f2;
+  --danger-border:  #fecaca;
+
+  /* ── 4. Typography ───────────────────────────────────── */
+  --font:      'Sora', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+
+  /* ── 5. Radius ───────────────────────────────────────── */
+  --radius-xs:   4px;
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   14px;
+  --radius-xl:   20px;
+  --radius-pill: 999px;
+
+  /* ── 6. Shadows ──────────────────────────────────────── */
+  --shadow-xs: 0 1px 2px rgba(0,0,0,.06);
+  --shadow-sm: 0 1px 4px rgba(0,0,0,.08), 0 0 0 1px rgba(0,0,0,.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.10), 0 0 0 1px rgba(0,0,0,.05);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,.12), 0 0 0 1px rgba(0,0,0,.05);
+}
+
+/* ── Reset ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font);
+  font-size: 16px;
+  color: var(--gray-900);
+  background: var(--gray-50);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 { margin: 0; }
+p  { margin: 0; }
+a  { color: var(--brand); text-decoration: none; }
+button, input, select, textarea { font-family: var(--font); }
+
+/* ── Animations globales ─────────────────────────────────── */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position:  600px 0; }
+}
+
+/* ── Print ───────────────────────────────────────────────── */
+@media print {
+  fas-header, .no-print { display: none !important; }
+}
