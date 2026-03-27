@@ -1,0 +1,24 @@
+{
+  "name": "fasossira",
+  "version": "1.0.0",
+  "description": "Transport Management SaaS — Mali",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "libs/*"
+  ],
+  "scripts": {
+    "dev:api": "cd apps/api && npm run start:dev",
+    "dev:web": "cd apps/web && ng serve",
+    "seed": "cd apps/api && npx ts-node src/seed.ts",
+    "seed:demo": "cd apps/api && SEED_DEMO=true npx ts-node src/seed.ts",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down"
+  },
+  "dependencies": {
+    "@nx/angular": "^22.6.1"
+  },
+  "devDependencies": {
+    "nx": "22.6.1"
+  }
+}
