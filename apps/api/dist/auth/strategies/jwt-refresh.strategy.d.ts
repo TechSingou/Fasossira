@@ -1,0 +1,12 @@
+import { Strategy } from 'passport-jwt';
+import { ConfigService } from '@nestjs/config';
+import { JwtPayload } from '../../shared/types';
+declare const JwtRefreshStrategy_base: new (...args: any[]) => Strategy;
+export declare class JwtRefreshStrategy extends JwtRefreshStrategy_base {
+    constructor(config: ConfigService);
+    validate(req: any, payload: JwtPayload): Promise<{
+        userId: string;
+        refreshToken: any;
+    }>;
+}
+export {};
