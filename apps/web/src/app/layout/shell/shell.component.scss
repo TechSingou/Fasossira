@@ -1,0 +1,423 @@
+/**
+ * shell.component.scss v2.1
+ *
+ * Fixes v2.1 :
+ *   ✅ Sidebar tronquée sur desktop → suppression height:100vh redondante,
+ *      min-height:0 sur le grid row, overflow-y:auto sur sidebar-nav uniquement
+ *   ✅ Topbar responsive mobile → breadcrumb masqué, actions compressées
+ *   ✅ Mobile overlay sidebar → signal sidebarOpen dédié, backdrop ajouté
+ *   ✅ Item actif nav → box-shadow inset left border blanche (style MVP)
+ *   ✅ Tenant pill → visible et contrasté sur fond sombre
+ */
+
+:host {
+  display: block;
+  height: 100vh;
+  font-family: var(--font);
+}
+
+/* ── CSS tokens sidebar ──────────────────────────────────── */
+:host {
+  --topbar-h: 56px;
+  --sidebar-w: 240px;
+  --sidebar-collapsed-w: 60px;
+}
+
+/* ── Layout grid ─────────────────────────────────────────── */
+.app-shell {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  grid-template-rows: var(--topbar-h) 1fr;
+  height: 100vh;
+  /* min-height:0 sur chaque row pour permettre scroll interne */
+
+  &.sidebar-collapsed {
+    grid-template-columns: var(--sidebar-collapsed-w) 1fr;
+  }
+}
+
+/* ── Sidebar ─────────────────────────────────────────────── */
+.sidebar {
+  grid-row: 1 / -1;
+  background: var(--gray-900);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  /* ✅ FIX : pas de height:100vh — le grid gère la hauteur */
+  min-height: 0;
+  overflow: hidden; /* clip horizontal */
+  transition: width 0.2s ease;
+}
+
+/* Logo */
+.sidebar-logo {
+  height: var(--topbar-h);
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  flex-shrink: 0;
+}
+
+.logo-mark {
+  width: 34px;
+  height: 34px;
+  background: var(--brand);
+  border-radius: var(--radius-sm);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--white);
+}
+
+.logo-text-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  overflow: hidden;
+}
+
+.logo-text {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--white);
+}
+
+.logo-sub {
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Tenant pill */
+.tenant-pill {
+  margin: 8px 12px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+.tenant-pill-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--white);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tenant-pill-role {
+  display: inline-block;
+  margin-top: 5px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--white);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+}
+
+/* ── Nav ─────────────────────────────────────────────────── */
+.sidebar-nav {
+  flex: 1;
+  padding: 8px 10px;
+  /* ✅ FIX : overflow-y ici seulement — la sidebar-nav scroll, pas toute la sidebar */
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  min-height: 0; /* crucial pour que flex:1 + overflow-y fonctionne */
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.nav-section {
+  margin-bottom: 6px;
+}
+
+.nav-section-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  padding: 10px 8px 4px;
+  user-select: none;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 10px;
+  border-radius: var(--radius-md);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  transition:
+    background 0.12s,
+    color 0.12s;
+  white-space: nowrap;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+  }
+
+  /* Item actif — fond + barre gauche blanche = style MVP */
+  &.active {
+    background: rgba(255, 255, 255, 0.18);
+    color: var(--white);
+    font-weight: 600;
+    box-shadow: inset 3px 0 0 rgba(255, 255, 255, 0.8);
+  }
+}
+
+.nav-icon-wrap {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  opacity: 1;
+}
+
+.nav-item.active .nav-icon-wrap {
+  opacity: 1;
+}
+
+.nav-label {
+  flex: 1;
+}
+
+/* Nav badge (compteur) */
+.nav-badge {
+  background: rgba(255, 255, 255, 0.25);
+  color: var(--white);
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.3px;
+}
+
+/* ── Sidebar footer ──────────────────────────────────────── */
+.sidebar-footer {
+  padding: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  flex-shrink: 0;
+}
+
+.user-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 10px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background 0.12s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+.user-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: grid;
+  place-items: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  color: var(--white);
+}
+
+.user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.user-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--white);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-email {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  padding: 5px;
+  border-radius: var(--radius-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    color 0.12s,
+    background 0.12s;
+  flex-shrink: 0;
+
+  &:hover {
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.12);
+  }
+}
+
+/* Sidebar logo image */
+.sidebar-logo-img {
+  max-height: 52px;
+  max-width: 172px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: brightness(0) invert(1);
+}
+
+/* ── Sidebar toggle ──────────────────────────────────────── */
+.sidebar-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--gray-500);
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.12s,
+    color 0.12s;
+  flex-shrink: 0;
+
+  &:hover {
+    background: var(--gray-100);
+    color: var(--gray-800);
+  }
+}
+
+/* ── Topbar ──────────────────────────────────────────────── */
+.topbar {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  display: flex;
+  align-items: center;
+  padding: 0 16px 0 12px;
+  gap: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  min-width: 0; /* évite que la topbar pousse le grid */
+}
+
+/* Breadcrumb — flex:1 pour prendre l'espace disponible */
+fas-breadcrumb {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* ── Main content ────────────────────────────────────────── */
+.main-content {
+  overflow: visible;
+  background: var(--gray-50);
+  position: relative;
+  min-height: 0;
+}
+
+.main-content-scroll {
+  height: 100%;
+  overflow-y: auto;
+  padding: 28px 32px;
+}
+
+/* ── Collapsed sidebar ───────────────────────────────────── */
+.sidebar-collapsed {
+  .sidebar-logo {
+    padding: 0;
+    justify-content: center;
+  }
+  .logo-text-wrap {
+    display: none;
+  }
+}
+
+/* ── Mobile backdrop ─────────────────────────────────────── */
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 900px) {
+  /* Grid : 1 colonne, topbar + contenu */
+  .app-shell {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: var(--topbar-h) 1fr;
+  }
+
+  /* Sidebar : hors du flux, overlay fixe */
+  .sidebar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 100;
+    width: var(--sidebar-w) !important;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Sidebar ouverte en mobile */
+  .app-shell.sidebar-open .sidebar {
+    display: flex;
+  }
+
+  /* Backdrop visible quand sidebar ouverte */
+  .app-shell.sidebar-open .sidebar-backdrop {
+    display: block;
+  }
+
+  /* Topbar : breadcrumb masqué sur très petit écran */
+  @media (max-width: 480px) {
+    fas-breadcrumb {
+      display: none;
+    }
+  }
+
+  .main-content-scroll {
+    padding: 20px 16px;
+  }
+}

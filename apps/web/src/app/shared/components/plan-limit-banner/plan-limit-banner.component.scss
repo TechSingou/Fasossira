@@ -1,0 +1,127 @@
+/**
+ * plan-limit-banner.component.scss
+ * Fichier : apps/web/src/app/shared/components/plan-limit-banner/plan-limit-banner.component.scss
+ */
+
+@keyframes bannerIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Banner principal ────────────────────────────────────── */
+.limit-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  margin-bottom: 14px;
+  border: 1px solid;
+  animation: bannerIn 200ms ease both;
+}
+
+/* ✅ Couleurs hardcodées remplacées par tokens globaux */
+.limit-banner--error {
+  background: var(--danger-bg);
+  border-color: var(--danger-border);
+  color: var(--danger);
+}
+
+.limit-banner--warn {
+  background: var(--warning-bg);
+  border-color: var(--warning-border);
+  color: var(--warning);
+}
+
+/* ── Icône wrapper ───────────────────────────────────────── */
+.limit-banner__icon-wrap {
+  width: 30px; height: 30px;
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.icon-wrap--error { background: var(--danger-border); color: var(--danger); }
+.icon-wrap--warn  { background: var(--warning-border); color: var(--warning); }
+
+/* ── Contenu ─────────────────────────────────────────────── */
+.limit-banner__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.limit-banner__title {
+  font-size: .82rem;
+  font-weight: 700;
+}
+
+.limit-banner__desc {
+  font-size: .78rem;
+  line-height: 1.5;
+  opacity: .9;
+
+  strong { font-weight: 700; }
+}
+
+.limit-banner__upgrade {
+  font-size: .72rem;
+  font-style: italic;
+  opacity: .75;
+  margin-top: 2px;
+}
+
+/* ── Jauge ───────────────────────────────────────────────── */
+.limit-gauge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.limit-gauge__track {
+  flex: 1;
+  height: 5px;
+  background: rgba(0, 0, 0, .1);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.limit-gauge__fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  transition: width .4s ease;
+}
+
+/* ✅ Couleurs hardcodées (#22c55e #f59e0b #ef4444) → tokens */
+.limit-gauge__fill--ok    { background: var(--success); }
+.limit-gauge__fill--warn  { background: var(--warning); }
+.limit-gauge__fill--error { background: var(--danger); }
+
+.limit-gauge__label {
+  font-size: .68rem;
+  font-weight: 700;
+  white-space: nowrap;
+  opacity: .7;
+}
+
+/* ── Mode jauge seule ────────────────────────────────────── */
+.limit-gauge-only {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.limit-gauge-only__header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.limit-gauge-only__label {
+  font-size: .75rem;
+  color: var(--gray-500);
+  font-weight: 500;
+}

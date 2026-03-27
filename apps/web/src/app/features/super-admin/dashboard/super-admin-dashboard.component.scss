@@ -1,0 +1,329 @@
+/**
+ * super-admin-dashboard.component.scss
+ * Fichier : apps/web/src/app/features/super-admin/dashboard/super-admin-dashboard.component.scss
+ *
+ * Variables locales migrées vers tokens globaux :
+ *   --B/--Bl → var(--brand)/var(--brand-mid)
+ *   --G/--Gl → var(--success)/var(--success-bg)
+ *   --P/--Px → #7c3aed/#f5f3ff (purple — pas de token global)
+ *   --R/--Rl → var(--danger)/var(--danger-bg)
+ *   --g*     → var(--gray-*)
+ */
+
+@keyframes fadeSlideUp {
+  from { opacity:0; transform:translateY(8px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes shimmer {
+  0%   { background-position:-600px 0; }
+  100% { background-position:600px 0; }
+}
+
+/* ── Layout ──────────────────────────────────────────────── */
+.pg { max-width: 1200px; }
+
+/* ── Header ──────────────────────────────────────────────── */
+.pg-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 8px 0 20px;
+  border-bottom: 1px solid var(--gray-200);
+  margin-bottom: 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* ── KPI Grid ────────────────────────────────────────────── */
+.kgrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+  animation: fadeSlideUp 200ms ease both;
+}
+
+.kcard {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+}
+
+/* ✅ Hero card : solid --brand au lieu de gradient (cohérence couleur unique) */
+.kcard-hero {
+  background: var(--brand);
+  color: var(--white);
+  border-color: var(--brand-dark);
+}
+
+.kh {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.kico-wrap {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.ktag {
+  font-size: .72rem;
+  font-weight: 700;
+  background: rgba(255,255,255,.2);
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  color: var(--white);
+}
+
+.kval-hero {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1;
+}
+
+.kval {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--gray-900);
+  line-height: 1;
+}
+
+/* ✅ --G → var(--success), --R → var(--danger), --P → #7c3aed */
+.kval-green  { color: var(--success); }
+.kval-red    { color: var(--danger); }
+.kval-purple { color: #7c3aed; }
+
+.klbl {
+  font-size: .75rem;
+  color: var(--gray-500);
+  margin-top: 6px;
+
+  .kcard-hero & { color: rgba(255,255,255,.7); }
+}
+
+/* ── Row 2 ───────────────────────────────────────────────── */
+.row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+  animation: fadeSlideUp 200ms .08s ease both;
+}
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.ch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.ct { margin: 0; font-size: .9rem; font-weight: 700; color: var(--gray-900); }
+
+/* ✅ --Bl → var(--brand-mid) */
+.clink {
+  font-size: .8rem;
+  color: var(--brand-mid);
+  text-decoration: none;
+  &:hover { text-decoration: underline; }
+}
+
+.cb { padding: 10px 18px; }
+
+.empty-hint {
+  text-align: center;
+  padding: 24px;
+  color: var(--gray-400);
+  font-size: .85rem;
+}
+
+/* ── Plan bars ───────────────────────────────────────────── */
+.plan-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--gray-50);
+  &:last-of-type { border-bottom: none; }
+}
+
+.pname {
+  width: 88px;
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--gray-700);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.pdot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  &-starter    { background: #0ea5e9; }
+  &-pro        { background: #7c3aed; }
+  &-enterprise { background: #f59e0b; }
+}
+
+.pbar-w {
+  flex: 1;
+  height: 6px;
+  background: var(--gray-100);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.pbar {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  transition: width .4s;
+  min-width: 4px;
+  &-starter    { background: #0ea5e9; }
+  &-pro        { background: #7c3aed; }
+  &-enterprise { background: #f59e0b; }
+}
+
+.pstats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 90px;
+  flex-shrink: 0;
+}
+
+.pcnt { font-size: .75rem; font-weight: 700; color: var(--gray-700); }
+.prev { font-size: .7rem;  color: var(--gray-400); }
+
+.ptotal {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid var(--gray-200);
+  margin-top: 4px;
+
+  span { font-size: .8rem; font-weight: 600; color: var(--gray-700); }
+}
+
+/* ✅ --B → var(--brand) */
+.ptotal-v { color: var(--brand); }
+
+/* ── Recent tenants ──────────────────────────────────────── */
+.trow-mini {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--gray-50);
+  &:last-child { border-bottom: none; }
+}
+
+.tav {
+  width: 32px; height: 32px;
+  border-radius: var(--radius-sm);
+  color: var(--white);
+  font-size: .72rem;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.tinfo { flex: 1; }
+.tname { font-size: .85rem; font-weight: 600; color: var(--gray-900); }
+.tsub  { font-size: .72rem; color: var(--gray-400); margin-top: 2px; }
+
+.pbadge {
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  font-size: .68rem;
+  font-weight: 700;
+
+  &-starter    { background: #e0f2fe; color: #0369a1; }
+  &-pro        { background: #f5f3ff; color: #7c3aed; }
+  &-enterprise { background: #fef9c3; color: #92400e; }
+}
+
+.sdot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  /* ✅ --G → var(--success), --R → var(--danger) */
+  &-on  { background: var(--success); }
+  &-off { background: var(--danger); }
+}
+
+/* ── Quick actions ───────────────────────────────────────── */
+.qa-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  animation: fadeSlideUp 200ms .12s ease both;
+}
+
+.qa {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  transition: all .15s;
+
+  &:hover {
+    border-color: var(--brand);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
+
+    .qa-arr { transform: translateX(3px); color: var(--brand); }
+  }
+}
+
+.qa-lbl {
+  flex: 1;
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.qa-arr { transition: transform .15s, color .15s; }
+
+/* ── Boutons ─────────────────────────────────────────────── */
+/* btn-primary est dans styles.scss */
+
+/* ── Skeleton ────────────────────────────────────────────── */
+.s {
+  border-radius: var(--radius-sm);
+  background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-150) 50%, var(--gray-100) 75%);
+  background-size: 600px 100%;
+  animation: shimmer 1.4s infinite linear;
+  display: block;
+}
+
+.ss     { height: 12px; width: 55px; }
+.sm     { height: 14px; width: 90px; }
+.sf     { flex: 1; height: 8px; }
+.sav    { width: 32px; height: 32px; border-radius: var(--radius-sm); flex-shrink: 0; }
+.sbadge { height: 20px; width: 55px; border-radius: var(--radius-pill); }
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .kgrid { grid-template-columns: 1fr 1fr; }
+  .kcard-hero { grid-column: span 2; }
+  .row2 { grid-template-columns: 1fr; }
+}

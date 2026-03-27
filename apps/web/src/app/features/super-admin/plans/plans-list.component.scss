@@ -1,0 +1,230 @@
+/**
+ * plans-list.component.scss
+ * Fichier : apps/web/src/app/features/super-admin/plans/plans-list.component.scss
+ *
+ * Variables locales migrées :
+ *   --B/--Bl → var(--brand)/var(--brand-mid)
+ *   --G/--R  → var(--success)/var(--danger)
+ *   --g*     → var(--gray-*)
+ */
+
+@keyframes rowIn   { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:none; } }
+@keyframes modalIn { from { opacity:0; transform:translateY(12px) scale(.98); } to { opacity:1; transform:none; } }
+@keyframes shimmer { 0% { background-position:-600px 0; } 100% { background-position:600px 0; } }
+
+.pg { max-width: 1100px; }
+
+/* ── Plans grid ──────────────────────────────────────────── */
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  animation: fade-in .2s .04s ease both;
+}
+
+.empty-full { grid-column: 1 / -1; }
+
+/* ── Plan card ───────────────────────────────────────────── */
+.plan-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: box-shadow .15s, transform .15s;
+  animation: rowIn 180ms ease both;
+
+  &:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  &.card-off { opacity: .6; }
+}
+
+/* Accent barre top par plan */
+.plan-starter    { border-top: 3px solid #0ea5e9; }
+.plan-pro        { border-top: 3px solid #7c3aed; }
+.plan-enterprise { border-top: 3px solid #f59e0b; }
+
+/* Skeleton card */
+.sk-card { pointer-events: none; }
+
+/* ── Card top ────────────────────────────────────────────── */
+.pcard-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.plan-name {
+  font-size: .9rem;
+  font-weight: 800;
+  color: var(--gray-900);
+  letter-spacing: -.2px;
+}
+
+/* ── Price ───────────────────────────────────────────────── */
+.plan-price {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--brand);
+  letter-spacing: -.5px;
+  font-family: var(--font-mono);
+}
+
+.price-unit {
+  font-size: .78rem;
+  font-weight: 500;
+  color: var(--gray-400);
+  font-family: var(--font);
+  margin-left: 3px;
+}
+
+/* ── Limits ──────────────────────────────────────────────── */
+.plan-limits {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.plim {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: .78rem;
+  color: var(--gray-600);
+}
+
+/* ── Features ────────────────────────────────────────────── */
+.plan-features {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-top: 6px;
+  border-top: 1px solid var(--gray-100);
+}
+
+.feat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .75rem;
+  color: var(--gray-600);
+}
+
+/* ── Card footer ─────────────────────────────────────────── */
+.pcard-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--gray-100);
+}
+
+.pcard-usage {
+  font-size: .72rem;
+  color: var(--gray-400);
+  font-style: italic;
+}
+
+.pcard-actions { display: flex; gap: 6px; }
+
+.ibtn {
+  display: flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  background: var(--white); color: var(--gray-500);
+  cursor: pointer; transition: all .12s;
+  &:hover { background: var(--gray-50); border-color: var(--gray-300); color: var(--gray-800); }
+}
+
+/* ── Skeleton ────────────────────────────────────────────── */
+.s {
+  border-radius: var(--radius-sm);
+  background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-150) 50%, var(--gray-100) 75%);
+  background-size: 600px 100%;
+  animation: shimmer 1.4s infinite linear;
+  display: block;
+}
+.sl { height: 18px; width: 80px; }
+.sm { height: 14px; width: 100px; }
+.ss { height: 12px; width: 65%; }
+.sb { height: 22px; width: 55px; border-radius: var(--radius-pill); }
+
+/* ── Modal ───────────────────────────────────────────────── */
+.backdrop {
+  position: fixed; inset: 0; background: rgba(0,0,0,.4);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow-y: auto;
+  z-index: 1000;
+  padding: 40px 20px;
+  animation: fade-in 150ms ease both;
+}
+
+.modal {
+  background: var(--white); border-radius: var(--radius-lg);
+  width: 100%; max-width: 520px; box-shadow: var(--shadow-lg);
+  animation: modalIn 200ms cubic-bezier(.16,1,.3,1) both;
+}
+
+.mh {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 20px; border-bottom: 1px solid var(--gray-100);
+  h2 { font-size: 1.05rem; font-weight: 700; color: var(--gray-900); }
+}
+
+.mclose {
+  background: none; border: none; cursor: pointer;
+  display: flex; align-items: center;
+  color: var(--gray-400); padding: 4px; border-radius: var(--radius-sm);
+  transition: all .12s;
+  &:hover { color: var(--gray-700); background: var(--gray-100); }
+}
+
+.mb { padding: 18px 20px; }
+
+.fg2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.col2 { grid-column: span 2; }
+
+.fld { display: flex; flex-direction: column; gap: 5px; }
+
+.fld label { font-size: .72rem; font-weight: 600; color: var(--gray-700); }
+.req { color: var(--danger); }
+
+.fld input,
+.fld textarea,
+.fld select {
+  padding: 8px 12px; border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm); font-family: var(--font);
+  font-size: .875rem; color: var(--gray-900);
+  background: var(--white); width: 100%; outline: none;
+  transition: border-color .15s, box-shadow .15s;
+  &:focus { border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-lighter); }
+}
+
+.fld textarea { resize: vertical; }
+
+.mf {
+  display: flex; justify-content: flex-end; gap: 10px;
+  align-items: center; flex-wrap: wrap;
+  padding: 14px 20px; border-top: 1px solid var(--gray-100);
+}
+
+.merr {
+  flex: 1; font-size: .78rem; color: var(--danger);
+  background: var(--danger-bg); padding: 7px 10px;
+  border-radius: var(--radius-sm); border: 1px solid var(--danger-border);
+}
+
+/* ── Boutons ─────────────────────────────────────────────── */
+.btn-ghost-md {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 14px; border-radius: var(--radius-md);
+  font-weight: 600; font-size: .82rem; cursor: pointer;
+  font-family: var(--font); border: 1px solid var(--gray-200);
+  background: var(--white); color: var(--gray-600); transition: all .12s;
+  &:hover { background: var(--gray-50); border-color: var(--gray-300); }
+}
